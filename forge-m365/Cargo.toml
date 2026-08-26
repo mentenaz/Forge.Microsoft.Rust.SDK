@@ -20,6 +20,7 @@ forge-m365-sp-site-users = { path = "../forge-m365-sp-site-users", version = "0.
 forge-m365-sp-folders = { path = "../forge-m365-sp-folders", version = "0.1.0" }
 forge-m365-sp-content-types = { path = "../forge-m365-sp-content-types", version = "0.1.0" }
 forge-m365-sp-site-groups = { path = "../forge-m365-sp-site-groups", version = "0.1.0" }
+forge-m365-sp-views = { path = "../forge-m365-sp-views", version = "0.1.0" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

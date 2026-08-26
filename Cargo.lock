@@ -174,6 +174,7 @@ dependencies = [
  "forge-m365-sp-site-groups",
  "forge-m365-sp-site-users",
  "forge-m365-sp-sites",
+ "forge-m365-sp-views",
  "forge-m365-sp-webs",
  "serde_json",
  "tokio",
@@ -301,6 +302,18 @@ dependencies = [
 
 [[package]]
 name = "forge-m365-sp-sites"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-views"
 version = "0.1.0"
 dependencies = [
  "forge-m365-core",

@@ -11,5 +11,6 @@ pub mod sp {
     pub use forge_m365_sp_site_groups as site_groups;
     pub use forge_m365_sp_site_users as site_users;
     pub use forge_m365_sp_sites as sites;
+    pub use forge_m365_sp_views as views;
     pub use forge_m365_sp_webs as webs;
 }
