@@ -166,6 +166,7 @@ dependencies = [
  "forge-m365-auth",
  "forge-m365-core",
  "forge-m365-macros",
+ "forge-m365-sp-sites",
  "serde_json",
  "tokio",
 ]
@@ -193,6 +194,7 @@ dependencies = [
  "forge-m365-macros",
  "inventory",
  "reqwest",
+ "serde_json",
  "thiserror",
  "tokio",
 ]
@@ -204,6 +206,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "forge-m365-sp-sites"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]
@@ -1002,6 +1016,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba"
 dependencies = [
  "serde_core",
+ "serde_derive",
 ]
 
 [[package]]

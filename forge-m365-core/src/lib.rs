@@ -34,6 +34,8 @@ pub enum Error {
     Http(#[from] reqwest::Error),
     #[error("surface {0:?} rejected the request: {1}")]
     Surface(Surface, String),
+    #[error("failed to decode response body: {0}")]
+    Decode(#[from] serde_json::Error),
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
