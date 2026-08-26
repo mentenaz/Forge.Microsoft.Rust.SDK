@@ -8,6 +8,7 @@ members = [
     "forge-m365-sp-webs",
     "forge-m365-sp-lists",
     "forge-m365-sp-files",
+    "forge-m365-sp-search",
     "forge-m365",
 ]
 
