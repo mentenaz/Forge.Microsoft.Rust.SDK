@@ -12,12 +12,20 @@ PnP.js as the functional spec. Private until stable; crates publish to
 crates.io as `forge-m365-*` when ready. Consumed as a library by Tauri, GPUI
 and terminal apps.
 
-## Current state: M0 done, M1 code-complete (live verification pending), M2 started
+## Current state: M0 done, M1 code-complete (live verification pending), M2 in progress
 
-Workspace has 8 crates: `forge-m365` (facade), `-core` (Error, Surface,
+Workspace has 10 crates: `forge-m365` (facade), `-core` (Error, Surface,
 Ladder, `OperationEntry`, `Transport` trait w/ `headers` param,
-`Client::run_ladder`), `-auth`, `-macros`, `-sp-sites`, `-sp-lists`,
-`-sp-files`. Escalation-ladder tests pass (`cargo test --workspace`).
+`Client::run_ladder`), `-auth`, `-macros`, `-sp-sites`, `-sp-webs`,
+`-sp-lists`, `-sp-files`, `-sp-search`. Escalation-ladder tests pass
+(`cargo test --workspace`, 34 tests as of `sp-search`).
+
+M2 domain progress: `sp-sites`, `sp-webs`, `sp-lists`, `sp-files`,
+`sp-search` ported (read-only + list/item + file CRUD; write ops beyond
+that — site/list/web create-delete, chunked upload, search pagination —
+are deferred and noted in each crate's README). ~33 PnPjs `sp/*` packages
+remain untouched (content-types, fields, site-users, sharing, security,
+views, forms, hubsites, folders, recycle-bin, attachments, ...).
 
 Auth status: client-credentials flow **live-verified** against a real tenant
 for both audiences (Graph + SharePoint), via client secret. Supports secret
@@ -37,9 +45,10 @@ NOTE: Kaspersky AV on this machine false-positives freshly built binaries
 M1 vertical slice (auth + sp-sites + sp-lists + sp-files) is code-complete:
 built, fmt/clippy/test-clean, wiring-tested against mock transports
 (`tests/*.rs` in each crate). **Not yet live-verified** — `live_sites.rs`,
-`live_lists.rs`, `live_files.rs` exist under `forge-m365/examples/` but
-haven't been run against a real tenant. Do not claim this surface works
-against SharePoint until one of those examples has actually succeeded.
+`live_webs.rs`, `live_lists.rs`, `live_files.rs`, `live_search.rs`,
+`live_device_code.rs` exist under `forge-m365/examples/` but none have been
+run against a real tenant. Do not claim any of this surface works against
+SharePoint until one of those examples has actually succeeded.
 
 sp-lists/sp-files needed a core change: `Transport::execute` /
 `Client::run_ladder` gained a `headers: &[(&str, &str)]` param.
@@ -47,8 +56,8 @@ sp-lists/sp-files needed a core change: `Transport::execute` /
 whenever a body is present, unless the caller already supplied a
 Content-Type (file upload overrides it to `application/octet-stream`).
 
-Next: live-verify M1, or continue M2 (remaining ~34 PnPjs `sp/*` domains —
-see `SPEC.md` §8, full package list surveyed under
+Next: live-verify M1/M2 so far, or continue M2 (remaining ~33 PnPjs `sp/*`
+domains — see `SPEC.md` §8, full package list surveyed under
 `E:\sources\pnpjs\packages\sp\`).
 
 ## Locked decisions (do not relitigate without cause)
