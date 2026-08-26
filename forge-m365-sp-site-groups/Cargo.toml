@@ -1,0 +1,19 @@
+[package]
+name = "forge-m365-sp-site-groups"
+description = "SharePoint site-group read operations for the forge-m365 SDK, hand-ported from PnPjs packages/sp/site-groups"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+forge-m365-core = { path = "../forge-m365-core", version = "0.1.0" }
+forge-m365-macros = { path = "../forge-m365-macros", version = "0.1.0" }
+forge-m365-sp-site-users = { path = "../forge-m365-sp-site-users", version = "0.1.0" }
+percent-encoding.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
