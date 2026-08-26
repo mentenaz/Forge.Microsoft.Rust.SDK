@@ -10,6 +10,7 @@ pub mod sp {
     pub use forge_m365_sp_folders as folders;
     pub use forge_m365_sp_hubsites as hubsites;
     pub use forge_m365_sp_lists as lists;
+    pub use forge_m365_sp_navigation as navigation;
     pub use forge_m365_sp_recycle_bin as recycle_bin;
     pub use forge_m365_sp_search as search;
     pub use forge_m365_sp_security as security;
