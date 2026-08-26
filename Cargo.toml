@@ -11,6 +11,7 @@ members = [
     "forge-m365-sp-search",
     "forge-m365-sp-site-users",
     "forge-m365-sp-folders",
+    "forge-m365-sp-content-types",
     "forge-m365",
 ]
 
