@@ -12,11 +12,26 @@ PnP.js as the functional spec. Private until stable; crates publish to
 crates.io as `forge-m365-*` when ready. Consumed as a library by Tauri, GPUI
 and terminal apps.
 
-## Current state: PLANNING / PRE-IMPLEMENTATION
+## Current state: M0 done, M1 in progress
 
-No Rust code exists yet. The deliverables so far are `SPEC.md` and this file.
-The next concrete step is **M0**: workspace scaffold + `core` pipeline
-skeleton + client-credentials auth (see SPEC §8).
+Workspace exists with 4 crates: `forge-m365` (facade), `-core` (Error,
+Surface, Ladder, `OperationEntry`, `Transport` trait, `Client::run_ladder`),
+`-auth`, `-macros`
+(`#[pnp_operation(id=, primary=, fallback=[...])]` → inventory registration).
+Escalation-ladder tests pass (`cargo test --workspace`).
+
+Auth status: client-credentials flow **live-verified** against a real tenant
+for both audiences (Graph + SharePoint). Supports secret AND certificate
+(RS256 JWT assertion, hand-rolled), plus interactive browser flow
+(auth-code + PKCE on loopback, `BrowserConfig::acquire_interactive()` — needs
+app-registration "Mobile and desktop" platform + public-client flows enabled;
+untested because tenant lacks portal permissions). Example:
+`cargo run --example live_auth -p forge-m365` picks method from env vars.
+NOTE: Kaspersky AV on this machine false-positives freshly built binaries
+(VHO:Trojan-Ransom.Convagent.gen); `target\*` must stay in its exclusions.
+
+Next: reqwest-backed `Transport` injecting bearer tokens per-surface, then
+first live `_api/web` call, then `sp-sites`.
 
 ## Locked decisions (do not relitigate without cause)
 

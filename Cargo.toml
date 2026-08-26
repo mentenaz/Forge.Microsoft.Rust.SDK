@@ -1,0 +1,34 @@
+[workspace]
+resolver = "2"
+members = [
+    "forge-m365-macros",
+    "forge-m365-core",
+    "forge-m365-auth",
+    "forge-m365",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/mentenaz/Forge.Microsoft.Rust.SDK"
+authors = ["Mentenaz"]
+
+[workspace.dependencies]
+inventory = "0.3"
+proc-macro2 = "1"
+quote = "1"
+syn = { version = "2", features = ["full"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "blocking"] }
+open = "5"
+thiserror = "2"
+base64 = "0.22"
+percent-encoding = "2"
+rand = "0.8"
+serde_json = "1"
+sha2 = "0.10"
+rsa = { version = "0.9", features = ["sha2"] }
+
+[profile.release]
+lto = true
+strip = true

@@ -1,0 +1,16 @@
+[package]
+name = "forge-m365-macros"
+description = "#[pnp_operation(...)] proc-macro: compile-time registration of M365 operations and their API-surface escalation ladders"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2.workspace = true
+quote.workspace = true
+syn.workspace = true

@@ -1,0 +1,26 @@
+[package]
+name = "forge-m365-auth"
+description = "Token acquisition and dual-audience (Graph / SharePoint) management for the forge-m365 SDK"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+forge-m365-core = { path = "../forge-m365-core" }
+base64.workspace = true
+open.workspace = true
+percent-encoding.workspace = true
+rand.workspace = true
+reqwest.workspace = true
+rsa.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+rand.workspace = true
+
+[features]
+default = []
