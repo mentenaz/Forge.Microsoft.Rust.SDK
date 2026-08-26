@@ -171,6 +171,7 @@ dependencies = [
  "forge-m365-sp-content-types",
  "forge-m365-sp-files",
  "forge-m365-sp-folders",
+ "forge-m365-sp-forms",
  "forge-m365-sp-hubsites",
  "forge-m365-sp-lists",
  "forge-m365-sp-navigation",
@@ -273,6 +274,18 @@ dependencies = [
 
 [[package]]
 name = "forge-m365-sp-folders"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-forms"
 version = "0.1.0"
 dependencies = [
  "forge-m365-core",

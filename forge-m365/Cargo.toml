@@ -27,6 +27,7 @@ forge-m365-sp-hubsites = { path = "../forge-m365-sp-hubsites", version = "0.1.0"
 forge-m365-sp-recycle-bin = { path = "../forge-m365-sp-recycle-bin", version = "0.1.0" }
 forge-m365-sp-comments = { path = "../forge-m365-sp-comments", version = "0.1.0" }
 forge-m365-sp-navigation = { path = "../forge-m365-sp-navigation", version = "0.1.0" }
+forge-m365-sp-forms = { path = "../forge-m365-sp-forms", version = "0.1.0" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
