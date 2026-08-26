@@ -16,6 +16,7 @@ forge-m365-sp-webs = { path = "../forge-m365-sp-webs", version = "0.1.0" }
 forge-m365-sp-lists = { path = "../forge-m365-sp-lists", version = "0.1.0" }
 forge-m365-sp-files = { path = "../forge-m365-sp-files", version = "0.1.0" }
 forge-m365-sp-search = { path = "../forge-m365-sp-search", version = "0.1.0" }
+forge-m365-sp-site-users = { path = "../forge-m365-sp-site-users", version = "0.1.0" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
