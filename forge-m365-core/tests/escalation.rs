@@ -11,6 +11,7 @@ impl forge_m365_core::Transport for ScriptedTransport {
         _surface: Surface,
         _method: &str,
         _url: &str,
+        _headers: &[(&str, &str)],
         _body: Option<&[u8]>,
     ) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<Vec<u8>>> + Send + '_>> {
         Box::pin(async move {
@@ -53,7 +54,7 @@ async fn ladder_falls_through_surface_errors() {
     };
     let client = Client::new(&transport);
     let bytes = client
-        .run_ladder(entry("sp.lists.get_items"), "GET", "https://x", None)
+        .run_ladder(entry("sp.lists.get_items"), "GET", "https://x", &[], None)
         .await
         .unwrap();
     assert_eq!(bytes, b"ok");
@@ -70,7 +71,7 @@ async fn ladder_exhaustion_is_typed_unsupported() {
     };
     let client = Client::new(&transport);
     let err = client
-        .run_ladder(entry("sp.lists.get_items"), "GET", "https://x", None)
+        .run_ladder(entry("sp.lists.get_items"), "GET", "https://x", &[], None)
         .await
         .unwrap_err();
     assert!(matches!(err, Error::Surface(..)));

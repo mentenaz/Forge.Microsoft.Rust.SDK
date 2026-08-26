@@ -49,7 +49,7 @@ async fn main() {
         site = site_url.trim_end_matches('/')
     );
 
-    match client.run_ladder(&GET_WEB, "GET", &url, None).await {
+    match client.run_ladder(&GET_WEB, "GET", &url, &[], None).await {
         Ok(bytes) => {
             let text = String::from_utf8_lossy(&bytes);
             println!("web title response:");

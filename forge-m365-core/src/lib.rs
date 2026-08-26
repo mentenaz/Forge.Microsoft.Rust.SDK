@@ -46,6 +46,7 @@ pub trait Transport: Send + Sync {
         surface: Surface,
         method: &str,
         url: &str,
+        headers: &[(&str, &str)],
         body: Option<&[u8]>,
     ) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<Vec<u8>>> + Send + '_>>;
 }
@@ -64,12 +65,17 @@ impl<'a> Client<'a> {
         entry: &OperationEntry,
         method: &str,
         url: &str,
+        headers: &[(&str, &str)],
         body: Option<&[u8]>,
     ) -> Result<Vec<u8>> {
         let mut last_err = None;
 
         for surface in std::iter::once(&entry.ladder.primary).chain(entry.ladder.fallback.iter()) {
-            match self.transport.execute(*surface, method, url, body).await {
+            match self
+                .transport
+                .execute(*surface, method, url, headers, body)
+                .await
+            {
                 Ok(bytes) => return Ok(bytes),
                 Err(Error::Surface(s, msg)) => last_err = Some(Error::Surface(s, msg)),
                 Err(e) => return Err(e),

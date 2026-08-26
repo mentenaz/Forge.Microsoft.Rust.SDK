@@ -1,6 +1,6 @@
 [package]
-name = "forge-m365"
-description = "Facade crate for the forge-m365 SDK: full Microsoft 365 surface (Graph + SharePoint REST)"
+name = "forge-m365-sp-lists"
+description = "SharePoint list and list-item CRUD for the forge-m365 SDK, hand-ported from PnPjs packages/sp/lists and packages/sp/items"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,11 +9,10 @@ authors.workspace = true
 
 [dependencies]
 forge-m365-core = { path = "../forge-m365-core", version = "0.1.0" }
-forge-m365-auth = { path = "../forge-m365-auth", version = "0.1.0" }
 forge-m365-macros = { path = "../forge-m365-macros", version = "0.1.0" }
-forge-m365-sp-sites = { path = "../forge-m365-sp-sites", version = "0.1.0" }
-forge-m365-sp-lists = { path = "../forge-m365-sp-lists", version = "0.1.0" }
+percent-encoding.workspace = true
+serde.workspace = true
+serde_json.workspace = true
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-serde_json.workspace = true

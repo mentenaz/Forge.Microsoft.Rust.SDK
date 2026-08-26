@@ -166,6 +166,7 @@ dependencies = [
  "forge-m365-auth",
  "forge-m365-core",
  "forge-m365-macros",
+ "forge-m365-sp-lists",
  "forge-m365-sp-sites",
  "serde_json",
  "tokio",
@@ -206,6 +207,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "forge-m365-sp-lists"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]

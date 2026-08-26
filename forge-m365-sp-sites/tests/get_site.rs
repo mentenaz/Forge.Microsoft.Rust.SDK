@@ -11,6 +11,7 @@ impl Transport for FixedResponse {
         _surface: Surface,
         _method: &str,
         _url: &str,
+        _headers: &[(&str, &str)],
         _body: Option<&[u8]>,
     ) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<Vec<u8>>> + Send + '_>> {
         Box::pin(async move { Ok(self.0.as_bytes().to_vec()) })

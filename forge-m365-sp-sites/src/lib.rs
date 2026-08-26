@@ -97,7 +97,7 @@ pub async fn get_site(client: &Client<'_>, site_url: &str) -> Result<SiteInfo> {
         site_url.trim_end_matches('/')
     );
     let bytes = client
-        .run_ladder(entry("sp.sites.get"), "GET", &url, None)
+        .run_ladder(entry("sp.sites.get"), "GET", &url, &[], None)
         .await?;
     Ok(serde_json::from_slice(&bytes)?)
 }
@@ -111,7 +111,7 @@ pub async fn get_root_web_url(client: &Client<'_>, site_url: &str) -> Result<Str
         site_url.trim_end_matches('/')
     );
     let bytes = client
-        .run_ladder(entry("sp.sites.get_root_web_url"), "GET", &url, None)
+        .run_ladder(entry("sp.sites.get_root_web_url"), "GET", &url, &[], None)
         .await?;
     let parsed: RootWebUrl = serde_json::from_slice(&bytes)?;
     Ok(parsed.url)
@@ -132,7 +132,13 @@ pub async fn get_document_libraries(
         v_param(absolute_web_url)
     );
     let bytes = client
-        .run_ladder(entry("sp.sites.get_document_libraries"), "GET", &url, None)
+        .run_ladder(
+            entry("sp.sites.get_document_libraries"),
+            "GET",
+            &url,
+            &[],
+            None,
+        )
         .await?;
     unwrap_result(&bytes, "GetDocumentLibraries")
 }
@@ -156,6 +162,7 @@ pub async fn get_web_url_from_page_url(
             entry("sp.sites.get_web_url_from_page_url"),
             "GET",
             &url,
+            &[],
             None,
         )
         .await?;

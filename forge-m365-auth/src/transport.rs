@@ -43,6 +43,7 @@ impl AuthedTransport {
         surface: Surface,
         method: &str,
         url: &str,
+        headers: &[(&str, &str)],
         body: Option<&[u8]>,
     ) -> Result<reqwest::Response> {
         let token = self.bearer(surface).await?;
@@ -53,6 +54,14 @@ impl AuthedTransport {
             .request(method, url)
             .bearer_auth(token)
             .header("Accept", "application/json;odata=nometadata");
+        // SharePoint REST needs the verbose content type to recognize a body's
+        // __metadata.type on write requests; callers can override via `headers`.
+        if body.is_some() {
+            req = req.header("Content-Type", "application/json;odata=verbose");
+        }
+        for (name, value) in headers {
+            req = req.header(*name, *value);
+        }
         if let Some(b) = body {
             req = req.body(b.to_vec());
         }
@@ -70,13 +79,24 @@ impl Transport for AuthedTransport {
         surface: Surface,
         method: &str,
         url: &str,
+        headers: &[(&str, &str)],
         body: Option<&[u8]>,
     ) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<Vec<u8>>> + Send + 'a>> {
         let method = method.to_string();
         let url = url.to_string();
+        let headers: Vec<(String, String)> = headers
+            .iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect();
         let body = body.map(<[u8]>::to_vec);
         Box::pin(async move {
-            let resp = self.raw(surface, &method, &url, body.as_deref()).await?;
+            let headers: Vec<(&str, &str)> = headers
+                .iter()
+                .map(|(k, v)| (k.as_str(), v.as_str()))
+                .collect();
+            let resp = self
+                .raw(surface, &method, &url, &headers, body.as_deref())
+                .await?;
             let status = resp.status();
             let bytes = resp.bytes().await.map_err(Error::Http)?.to_vec();
             if status.is_success() {
