@@ -14,25 +14,26 @@ and terminal apps.
 
 ## Current state: M0 done, M1 code-complete (live verification pending), M2 in progress
 
-Workspace has 16 crates: `forge-m365` (facade), `-core` (Error, Surface,
+Workspace has 17 crates: `forge-m365` (facade), `-core` (Error, Surface,
 Ladder, `OperationEntry`, `Transport` trait w/ `headers` param,
 `Client::run_ladder`), `-auth`, `-macros`, `-sp-sites`, `-sp-webs`,
 `-sp-lists`, `-sp-files`, `-sp-search`, `-sp-site-users`, `-sp-folders`,
-`-sp-content-types`, `-sp-site-groups`, `-sp-views`, `-sp-security`.
-Escalation-ladder tests pass (`cargo test --workspace`, 60 tests as of
-`sp-security`).
+`-sp-content-types`, `-sp-site-groups`, `-sp-views`, `-sp-security`,
+`-sp-attachments`. Escalation-ladder tests pass (`cargo test --workspace`,
+64 tests as of `sp-attachments`).
 
 M2 domain progress: `sp-sites`, `sp-webs`, `sp-lists`, `sp-files`,
 `sp-search`, `sp-site-users`, `sp-folders`, `sp-content-types`,
-`sp-site-groups`, `sp-views`, `sp-security` ported (read-only + list/item +
-file/folder CRUD + role assignments/definitions; write ops beyond that —
-site/list/web create-delete, chunked upload, search pagination, user/group
-add-remove, content-type create-delete, view mutations, role assignment
-add-remove — are deferred and noted in each crate's README).
-`sp-site-groups` reuses `SiteUserInfo` from `sp-site-users` (first
-cross-crate type reuse). ~27 PnPjs `sp/*` packages remain untouched
-(fields, sharing, forms, hubsites, recycle-bin, attachments, navigation,
-comments, appcatalog, ...).
+`sp-site-groups`, `sp-views`, `sp-security`, `sp-attachments` ported
+(read-only + list/item + file/folder/attachment CRUD + role
+assignments/definitions; write ops beyond that — site/list/web
+create-delete, chunked upload, search pagination, user/group add-remove,
+content-type create-delete, view mutations, role assignment add-remove,
+attachment setContent/recycle — are deferred and noted in each crate's
+README). `sp-site-groups` reuses `SiteUserInfo` from `sp-site-users` (first
+cross-crate type reuse). ~26 PnPjs `sp/*` packages remain untouched
+(fields — largest remaining at ~600 lines — sharing, forms, hubsites,
+recycle-bin, navigation, comments, appcatalog, ...).
 
 Auth status: client-credentials flow **live-verified** against a real tenant
 for both audiences (Graph + SharePoint), via client secret. Supports secret
@@ -55,8 +56,9 @@ built, fmt/clippy/test-clean, wiring-tested against mock transports
 `live_webs.rs`, `live_lists.rs`, `live_files.rs`, `live_search.rs`,
 `live_site_users.rs`, `live_folders.rs`, `live_content_types.rs`,
 `live_site_groups.rs`, `live_views.rs`, `live_security.rs`,
-`live_device_code.rs` exist under `forge-m365/examples/` but none have been
-run against a real tenant (owner has confirmed they lack a full admin
+`live_attachments.rs`, `live_device_code.rs` exist under
+`forge-m365/examples/` but none have been run against a real tenant (owner
+has confirmed they lack a full admin
 M365/SPO environment to test against — this may remain permanently
 unverified; keep building but never claim live success that didn't happen).
 Do not claim any of this surface works against SharePoint until one of
