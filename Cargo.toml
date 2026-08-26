@@ -17,6 +17,7 @@ members = [
     "forge-m365-sp-security",
     "forge-m365-sp-attachments",
     "forge-m365-sp-hubsites",
+    "forge-m365-sp-recycle-bin",
     "forge-m365",
 ]
 

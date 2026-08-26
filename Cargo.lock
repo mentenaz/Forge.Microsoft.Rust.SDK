@@ -172,6 +172,7 @@ dependencies = [
  "forge-m365-sp-folders",
  "forge-m365-sp-hubsites",
  "forge-m365-sp-lists",
+ "forge-m365-sp-recycle-bin",
  "forge-m365-sp-search",
  "forge-m365-sp-security",
  "forge-m365-sp-site-groups",
@@ -286,6 +287,17 @@ dependencies = [
  "forge-m365-core",
  "forge-m365-macros",
  "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-recycle-bin"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
  "serde",
  "serde_json",
  "tokio",
