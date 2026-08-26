@@ -14,21 +14,23 @@ and terminal apps.
 
 ## Current state: M0 done, M1 code-complete (live verification pending), M2 in progress
 
-Workspace has 13 crates: `forge-m365` (facade), `-core` (Error, Surface,
+Workspace has 15 crates: `forge-m365` (facade), `-core` (Error, Surface,
 Ladder, `OperationEntry`, `Transport` trait w/ `headers` param,
 `Client::run_ladder`), `-auth`, `-macros`, `-sp-sites`, `-sp-webs`,
 `-sp-lists`, `-sp-files`, `-sp-search`, `-sp-site-users`, `-sp-folders`,
-`-sp-content-types`. Escalation-ladder tests pass (`cargo test --workspace`,
-47 tests as of `sp-content-types`).
+`-sp-content-types`, `-sp-site-groups`, `-sp-views`. Escalation-ladder
+tests pass (`cargo test --workspace`, 55 tests as of `sp-views`).
 
 M2 domain progress: `sp-sites`, `sp-webs`, `sp-lists`, `sp-files`,
-`sp-search`, `sp-site-users`, `sp-folders`, `sp-content-types` ported
-(read-only + list/item + file/folder CRUD; write ops beyond that — site/
-list/web create-delete, chunked upload, search pagination, user add/remove,
-content-type create/delete — are deferred and noted in each crate's
-README). ~30 PnPjs `sp/*` packages remain untouched (fields, sharing,
-security, views, forms, hubsites, recycle-bin, attachments, site-groups,
-navigation, ...).
+`sp-search`, `sp-site-users`, `sp-folders`, `sp-content-types`,
+`sp-site-groups`, `sp-views` ported (read-only + list/item + file/folder
+CRUD; write ops beyond that — site/list/web create-delete, chunked upload,
+search pagination, user/group add-remove, content-type create-delete, view
+mutations — are deferred and noted in each crate's README). `sp-site-groups`
+reuses `SiteUserInfo` from `sp-site-users` (first cross-crate type reuse).
+~28 PnPjs `sp/*` packages remain untouched (fields, sharing, security,
+forms, hubsites, recycle-bin, attachments, navigation, comments,
+attachments, ...).
 
 Auth status: client-credentials flow **live-verified** against a real tenant
 for both audiences (Graph + SharePoint), via client secret. Supports secret
@@ -50,8 +52,9 @@ built, fmt/clippy/test-clean, wiring-tested against mock transports
 (`tests/*.rs` in each crate). **Not yet live-verified** — `live_sites.rs`,
 `live_webs.rs`, `live_lists.rs`, `live_files.rs`, `live_search.rs`,
 `live_site_users.rs`, `live_folders.rs`, `live_content_types.rs`,
-`live_device_code.rs` exist under `forge-m365/examples/` but none have been
-run against a real tenant (owner has confirmed they lack a full admin
+`live_site_groups.rs`, `live_views.rs`, `live_device_code.rs` exist under
+`forge-m365/examples/` but none have been run against a real tenant (owner
+has confirmed they lack a full admin
 M365/SPO environment to test against — this may remain permanently
 unverified; keep building but never claim live success that didn't happen).
 Do not claim any of this surface works against SharePoint until one of
