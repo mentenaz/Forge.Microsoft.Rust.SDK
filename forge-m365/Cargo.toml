@@ -8,9 +8,9 @@ repository.workspace = true
 authors.workspace = true
 
 [dependencies]
-forge-m365-core = { path = "../forge-m365-core" }
-forge-m365-auth = { path = "../forge-m365-auth" }
-forge-m365-macros = { path = "../forge-m365-macros" }
+forge-m365-core = { path = "../forge-m365-core", version = "0.1.0" }
+forge-m365-auth = { path = "../forge-m365-auth", version = "0.1.0" }
+forge-m365-macros = { path = "../forge-m365-macros", version = "0.1.0" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

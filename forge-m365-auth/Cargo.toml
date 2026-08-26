@@ -8,7 +8,7 @@ repository.workspace = true
 authors.workspace = true
 
 [dependencies]
-forge-m365-core = { path = "../forge-m365-core" }
+forge-m365-core = { path = "../forge-m365-core", version = "0.1.0" }
 base64.workspace = true
 open.workspace = true
 percent-encoding.workspace = true
