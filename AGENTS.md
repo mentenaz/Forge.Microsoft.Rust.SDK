@@ -14,32 +14,32 @@ and terminal apps.
 
 ## Current state: M0 done, M1 code-complete (live verification pending), M2 in progress
 
-Workspace has 21 crates: `forge-m365` (facade), `-core` (Error, Surface,
+Workspace has 22 crates: `forge-m365` (facade), `-core` (Error, Surface,
 Ladder, `OperationEntry`, `Transport` trait w/ `headers` param,
 `Client::run_ladder`), `-auth`, `-macros`, `-sp-sites`, `-sp-webs`,
 `-sp-lists`, `-sp-files`, `-sp-search`, `-sp-site-users`, `-sp-folders`,
 `-sp-content-types`, `-sp-site-groups`, `-sp-views`, `-sp-security`,
 `-sp-attachments`, `-sp-hubsites`, `-sp-recycle-bin`, `-sp-comments`,
-`-sp-navigation`. Escalation-ladder tests pass (`cargo test --workspace`,
-76 tests as of `sp-navigation`).
+`-sp-navigation`, `-sp-forms`. Escalation-ladder tests pass
+(`cargo test --workspace`, 78 tests as of `sp-forms`).
 
 M2 domain progress: `sp-sites`, `sp-webs`, `sp-lists`, `sp-files`,
 `sp-search`, `sp-site-users`, `sp-folders`, `sp-content-types`,
 `sp-site-groups`, `sp-views`, `sp-security`, `sp-attachments`,
-`sp-hubsites`, `sp-recycle-bin`, `sp-comments`, `sp-navigation` ported
-(read-only + list/item/file/folder/attachment/comment CRUD + role
-assignments/definitions + recycle-bin restore/delete + nav node
-add/menu-state; write ops beyond that — site/list/web create-delete,
+`sp-hubsites`, `sp-recycle-bin`, `sp-comments`, `sp-navigation`,
+`sp-forms` ported (read-only + list/item/file/folder/attachment/comment
+CRUD + role assignments/definitions + recycle-bin restore/delete + nav
+node add/menu-state; write ops beyond that — site/list/web create-delete,
 chunked upload, search pagination, user/group add-remove, content-type
 create-delete, view mutations, role assignment add-remove, attachment
 setContent/recycle, recycle-bin bulk ops, comment replies — are deferred
-and noted in each crate's README). `sp-site-groups` reuses `SiteUserInfo`
-from `sp-site-users` (first cross-crate type reuse). `sp-comments` is the
-first crate covering SharePoint's newer camelCase "likes and comments"
-service rather than the classic PascalCase `_api/web` surface. ~22 PnPjs
-`sp/*` packages remain untouched (`fields` — largest remaining at ~600
-lines — `sharing`, `forms`, `appcatalog`, `site-designs`, `site-scripts`,
-...).
+and noted in each crate's README; `sp-forms` has no write API in PnPjs to
+defer). `sp-site-groups` reuses `SiteUserInfo` from `sp-site-users` (first
+cross-crate type reuse). `sp-comments` is the first crate covering
+SharePoint's newer camelCase "likes and comments" service rather than the
+classic PascalCase `_api/web` surface. ~21 PnPjs `sp/*` packages remain
+untouched (`fields` — largest remaining at ~600 lines — `sharing`,
+`appcatalog`, `site-designs`, `site-scripts`, ...).
 
 Auth status: client-credentials flow **live-verified** against a real tenant
 for both audiences (Graph + SharePoint), via client secret. Supports secret
@@ -63,9 +63,9 @@ built, fmt/clippy/test-clean, wiring-tested against mock transports
 `live_site_users.rs`, `live_folders.rs`, `live_content_types.rs`,
 `live_site_groups.rs`, `live_views.rs`, `live_security.rs`,
 `live_attachments.rs`, `live_hubsites.rs`, `live_recycle_bin.rs`,
-`live_comments.rs`, `live_navigation.rs`, `live_device_code.rs` exist under
-`forge-m365/examples/` but none have been run against a real tenant (owner
-has confirmed they lack a full admin
+`live_comments.rs`, `live_navigation.rs`, `live_forms.rs`,
+`live_device_code.rs` exist under `forge-m365/examples/` but none have been
+run against a real tenant (owner has confirmed they lack a full admin
 M365/SPO environment to test against — this may remain permanently
 unverified; keep building but never claim live success that didn't happen).
 Do not claim any of this surface works against SharePoint until one of
