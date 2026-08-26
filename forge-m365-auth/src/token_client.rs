@@ -18,6 +18,8 @@ pub enum AuthError {
     Endpoint { status: u16, body: String },
     #[error("browser flow error: {0}")]
     Browser(String),
+    #[error("device code flow error: {0}")]
+    DeviceCode(String),
 }
 
 impl From<AuthError> for forge_m365_core::Error {

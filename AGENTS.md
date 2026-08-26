@@ -12,26 +12,44 @@ PnP.js as the functional spec. Private until stable; crates publish to
 crates.io as `forge-m365-*` when ready. Consumed as a library by Tauri, GPUI
 and terminal apps.
 
-## Current state: M0 done, M1 in progress
+## Current state: M0 done, M1 code-complete (live verification pending), M2 started
 
-Workspace exists with 4 crates: `forge-m365` (facade), `-core` (Error,
-Surface, Ladder, `OperationEntry`, `Transport` trait, `Client::run_ladder`),
-`-auth`, `-macros`
-(`#[pnp_operation(id=, primary=, fallback=[...])]` → inventory registration).
-Escalation-ladder tests pass (`cargo test --workspace`).
+Workspace has 8 crates: `forge-m365` (facade), `-core` (Error, Surface,
+Ladder, `OperationEntry`, `Transport` trait w/ `headers` param,
+`Client::run_ladder`), `-auth`, `-macros`, `-sp-sites`, `-sp-lists`,
+`-sp-files`. Escalation-ladder tests pass (`cargo test --workspace`).
 
 Auth status: client-credentials flow **live-verified** against a real tenant
-for both audiences (Graph + SharePoint). Supports secret AND certificate
-(RS256 JWT assertion, hand-rolled), plus interactive browser flow
+for both audiences (Graph + SharePoint), via client secret. Supports secret
+AND certificate (RS256 JWT assertion, hand-rolled), interactive browser flow
 (auth-code + PKCE on loopback, `BrowserConfig::acquire_interactive()` — needs
 app-registration "Mobile and desktop" platform + public-client flows enabled;
-untested because tenant lacks portal permissions). Example:
-`cargo run --example live_auth -p forge-m365` picks method from env vars.
+untested because tenant lacks portal permissions), and device code flow
+(`DeviceCodeConfig::acquire()`, RFC 8628 — untested live). All auth flows are
+deliberately synchronous fns (not `async fn`): they block on I/O (TCP accept,
+polling sleep) rather than depend on a specific async runtime, per the
+library's no-owned-runtime constraint; async hosts run them via
+`spawn_blocking`. Example: `cargo run --example live_auth -p forge-m365`
+picks method from env vars.
 NOTE: Kaspersky AV on this machine false-positives freshly built binaries
 (VHO:Trojan-Ransom.Convagent.gen); `target\*` must stay in its exclusions.
 
-Next: reqwest-backed `Transport` injecting bearer tokens per-surface, then
-first live `_api/web` call, then `sp-sites`.
+M1 vertical slice (auth + sp-sites + sp-lists + sp-files) is code-complete:
+built, fmt/clippy/test-clean, wiring-tested against mock transports
+(`tests/*.rs` in each crate). **Not yet live-verified** — `live_sites.rs`,
+`live_lists.rs`, `live_files.rs` exist under `forge-m365/examples/` but
+haven't been run against a real tenant. Do not claim this surface works
+against SharePoint until one of those examples has actually succeeded.
+
+sp-lists/sp-files needed a core change: `Transport::execute` /
+`Client::run_ladder` gained a `headers: &[(&str, &str)]` param.
+`AuthedTransport` defaults `Content-Type: application/json;odata=verbose`
+whenever a body is present, unless the caller already supplied a
+Content-Type (file upload overrides it to `application/octet-stream`).
+
+Next: live-verify M1, or continue M2 (remaining ~34 PnPjs `sp/*` domains —
+see `SPEC.md` §8, full package list surveyed under
+`E:\sources\pnpjs\packages\sp\`).
 
 ## Locked decisions (do not relitigate without cause)
 

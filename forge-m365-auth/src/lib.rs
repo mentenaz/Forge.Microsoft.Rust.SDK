@@ -1,10 +1,12 @@
 mod assertion;
 mod browser;
+mod device_code;
 mod token_client;
 mod transport;
 
 pub use assertion::{AssertionError, ClientAssertion};
 pub use browser::BrowserConfig;
+pub use device_code::{DeviceCodeConfig, DeviceCodePrompt};
 pub use token_client::{
     scope_for, AuthError, ClientAuth, TokenClient, TokenResponse, ASSERTION_TYPE,
 };
