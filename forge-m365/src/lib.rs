@@ -3,6 +3,7 @@ pub use forge_m365_core::{Client, Error, Ladder, OperationEntry, Result, Surface
 pub use forge_m365_macros::pnp_operation;
 
 pub mod sp {
+    pub use forge_m365_sp_attachments as attachments;
     pub use forge_m365_sp_content_types as content_types;
     pub use forge_m365_sp_files as files;
     pub use forge_m365_sp_folders as folders;

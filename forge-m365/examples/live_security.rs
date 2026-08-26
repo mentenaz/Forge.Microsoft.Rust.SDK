@@ -56,7 +56,10 @@ async fn main() {
 
     let web_url = format!("{}/_api/web", site_url.trim_end_matches('/'));
     match forge_m365_sp_security::get_role_assignments(&client, &web_url).await {
-        Ok(assignments) => println!("{} role assignment(s):\n{assignments:#?}", assignments.len()),
+        Ok(assignments) => println!(
+            "{} role assignment(s):\n{assignments:#?}",
+            assignments.len()
+        ),
         Err(e) => {
             eprintln!("get_role_assignments FAILED: {e}");
             std::process::exit(1);

@@ -15,6 +15,7 @@ members = [
     "forge-m365-sp-site-groups",
     "forge-m365-sp-views",
     "forge-m365-sp-security",
+    "forge-m365-sp-attachments",
     "forge-m365",
 ]
 
