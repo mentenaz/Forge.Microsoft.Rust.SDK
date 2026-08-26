@@ -55,8 +55,13 @@ impl AuthedTransport {
             .bearer_auth(token)
             .header("Accept", "application/json;odata=nometadata");
         // SharePoint REST needs the verbose content type to recognize a body's
-        // __metadata.type on write requests; callers can override via `headers`.
-        if body.is_some() {
+        // __metadata.type on write requests; callers (e.g. file upload, which
+        // sends raw bytes) can override by passing their own Content-Type,
+        // since reqwest's `.header()` appends rather than replaces.
+        let caller_sets_content_type = headers
+            .iter()
+            .any(|(name, _)| name.eq_ignore_ascii_case("content-type"));
+        if body.is_some() && !caller_sets_content_type {
             req = req.header("Content-Type", "application/json;odata=verbose");
         }
         for (name, value) in headers {

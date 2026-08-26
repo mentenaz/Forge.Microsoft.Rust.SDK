@@ -6,6 +6,7 @@ members = [
     "forge-m365-auth",
     "forge-m365-sp-sites",
     "forge-m365-sp-lists",
+    "forge-m365-sp-files",
     "forge-m365",
 ]
 
