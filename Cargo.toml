@@ -21,6 +21,7 @@ members = [
     "forge-m365-sp-comments",
     "forge-m365-sp-navigation",
     "forge-m365-sp-forms",
+    "forge-m365-sp-appcatalog",
     "forge-m365",
 ]
 

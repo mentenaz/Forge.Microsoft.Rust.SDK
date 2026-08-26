@@ -166,6 +166,7 @@ dependencies = [
  "forge-m365-auth",
  "forge-m365-core",
  "forge-m365-macros",
+ "forge-m365-sp-appcatalog",
  "forge-m365-sp-attachments",
  "forge-m365-sp-comments",
  "forge-m365-sp-content-types",
@@ -222,6 +223,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "forge-m365-sp-appcatalog"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]
