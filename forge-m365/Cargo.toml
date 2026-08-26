@@ -12,6 +12,7 @@ forge-m365-core = { path = "../forge-m365-core", version = "0.1.0" }
 forge-m365-auth = { path = "../forge-m365-auth", version = "0.1.0" }
 forge-m365-macros = { path = "../forge-m365-macros", version = "0.1.0" }
 forge-m365-sp-sites = { path = "../forge-m365-sp-sites", version = "0.1.0" }
+forge-m365-sp-webs = { path = "../forge-m365-sp-webs", version = "0.1.0" }
 forge-m365-sp-lists = { path = "../forge-m365-sp-lists", version = "0.1.0" }
 forge-m365-sp-files = { path = "../forge-m365-sp-files", version = "0.1.0" }
 

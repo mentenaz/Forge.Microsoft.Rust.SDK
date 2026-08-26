@@ -6,4 +6,5 @@ pub mod sp {
     pub use forge_m365_sp_files as files;
     pub use forge_m365_sp_lists as lists;
     pub use forge_m365_sp_sites as sites;
+    pub use forge_m365_sp_webs as webs;
 }

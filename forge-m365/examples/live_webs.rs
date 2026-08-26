@@ -1,5 +1,5 @@
 use forge_m365_auth::{AuthedTransport, TokenClient};
-use forge_m365_core::{Client, Ladder, OperationEntry, Surface};
+use forge_m365_core::Client;
 
 fn env(name: &str) -> String {
     std::env::var(name).unwrap_or_else(|_| {
@@ -8,14 +8,16 @@ fn env(name: &str) -> String {
     })
 }
 
-const GET_WEB: OperationEntry = OperationEntry {
-    id: "sp.web.get",
-    operation_path: "live_web::get_web",
-    ladder: Ladder {
-        primary: Surface::SpRest,
-        fallback: &[],
-    },
-};
+fn cert_pem() -> Option<String> {
+    if let Ok(p) = std::env::var("M365_CERT_PEM") {
+        if !p.is_empty() {
+            return Some(p.replace("\\n", "\n").replace("\\r", "\r"));
+        }
+    }
+    std::env::var("M365_CERT_PEM_PATH")
+        .ok()
+        .map(|path| std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("read {path}: {e}")))
+}
 
 #[tokio::main]
 async fn main() {
@@ -44,26 +46,10 @@ async fn main() {
     let transport = AuthedTransport::new(token_client);
     let client = Client::new(&transport);
 
-    let url = format!(
-        "{site}/_api/web?$select=Title,ServerRelativeUrl",
-        site = site_url.trim_end_matches('/')
-    );
-
-    match client.run_ladder(&GET_WEB, "GET", &url, &[], None).await {
-        Ok(bytes) => {
-            let text = String::from_utf8_lossy(&bytes);
-            println!("web title response:");
-            println!(
-                "{}",
-                serde_json::to_string_pretty(
-                    &serde_json::from_str::<serde_json::Value>(&text)
-                        .unwrap_or(serde_json::Value::String(text.to_string()))
-                )
-                .unwrap()
-            );
-        }
+    match forge_m365_sp_webs::get_web(&client, &site_url).await {
+        Ok(web) => println!("web: {web:#?}"),
         Err(e) => {
-            eprintln!("FAILED: {e}");
+            eprintln!("get_web FAILED: {e}");
             eprintln!();
             eprintln!("hints:");
             eprintln!("  - 401/403: app registration needs SharePoint application permission (e.g. Sites.Read.All or Sites.FullControl.All) with admin consent");
@@ -71,15 +57,21 @@ async fn main() {
             std::process::exit(1);
         }
     }
-}
 
-fn cert_pem() -> Option<String> {
-    if let Ok(p) = std::env::var("M365_CERT_PEM") {
-        if !p.is_empty() {
-            return Some(p.replace("\\n", "\n").replace("\\r", "\r"));
+    match forge_m365_sp_webs::get_subwebs(&client, &site_url).await {
+        Ok(webs) => println!("{} subweb(s):\n{webs:#?}", webs.len()),
+        Err(e) => {
+            eprintln!("get_subwebs FAILED: {e}");
+            std::process::exit(1);
         }
     }
-    std::env::var("M365_CERT_PEM_PATH")
-        .ok()
-        .map(|path| std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("read {path}: {e}")))
+
+    match forge_m365_sp_webs::get_parent_web_url(&client, &site_url).await {
+        Ok(Some(url)) => println!("parent web: {url}"),
+        Ok(None) => println!("parent web: none (this is the root web)"),
+        Err(e) => {
+            eprintln!("get_parent_web_url FAILED: {e}");
+            std::process::exit(1);
+        }
+    }
 }
