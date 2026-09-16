@@ -22,6 +22,10 @@ forge-m365-sp-content-types = { path = "../forge-m365-sp-content-types", version
 forge-m365-sp-site-groups = { path = "../forge-m365-sp-site-groups", version = "0.1.0" }
 forge-m365-sp-views = { path = "../forge-m365-sp-views", version = "0.1.0" }
 forge-m365-sp-security = { path = "../forge-m365-sp-security", version = "0.1.0" }
+forge-m365-sp-sharing = { path = "../forge-m365-sp-sharing", version = "0.1.0" }
+forge-m365-sp-subscriptions = { path = "../forge-m365-sp-subscriptions", version = "0.1.0" }
+forge-m365-sp-features = { path = "../forge-m365-sp-features", version = "0.1.0" }
+forge-m365-sp-regional-settings = { path = "../forge-m365-sp-regional-settings", version = "0.1.0" }
 forge-m365-sp-attachments = { path = "../forge-m365-sp-attachments", version = "0.1.0" }
 forge-m365-sp-hubsites = { path = "../forge-m365-sp-hubsites", version = "0.1.0" }
 forge-m365-sp-recycle-bin = { path = "../forge-m365-sp-recycle-bin", version = "0.1.0" }
@@ -29,6 +33,20 @@ forge-m365-sp-comments = { path = "../forge-m365-sp-comments", version = "0.1.0"
 forge-m365-sp-navigation = { path = "../forge-m365-sp-navigation", version = "0.1.0" }
 forge-m365-sp-forms = { path = "../forge-m365-sp-forms", version = "0.1.0" }
 forge-m365-sp-appcatalog = { path = "../forge-m365-sp-appcatalog", version = "0.1.0" }
+forge-m365-sp-fields = { path = "../forge-m365-sp-fields", version = "0.1.0" }
+forge-m365-sp-items = { path = "../forge-m365-sp-items", version = "0.1.0" }
+forge-m365-sp-profiles = { path = "../forge-m365-sp-profiles", version = "0.1.0" }
+forge-m365-sp-related-items = { path = "../forge-m365-sp-related-items", version = "0.1.0" }
+forge-m365-sp-publishing-sitepageservice = { path = "../forge-m365-sp-publishing-sitepageservice", version = "0.1.0" }
+forge-m365-sp-webparts = { path = "../forge-m365-sp-webparts", version = "0.1.0" }
+forge-m365-sp-column-defaults = { path = "../forge-m365-sp-column-defaults", version = "0.1.0" }
+forge-m365-sp-groupsitemanager = { path = "../forge-m365-sp-groupsitemanager", version = "0.1.0" }
+forge-m365-sp-site-scripts = { path = "../forge-m365-sp-site-scripts", version = "0.1.0" }
+forge-m365-sp-utilities = { path = "../forge-m365-sp-utilities", version = "0.1.0" }
+forge-m365-sp-site-designs = { path = "../forge-m365-sp-site-designs", version = "0.1.0" }
+forge-m365-sp-user-custom-actions = { path = "../forge-m365-sp-user-custom-actions", version = "0.1.0" }
+forge-m365-sp-social = { path = "../forge-m365-sp-social", version = "0.1.0" }
+forge-m365-sp-clientside-pages = { path = "../forge-m365-sp-clientside-pages", version = "0.1.0" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

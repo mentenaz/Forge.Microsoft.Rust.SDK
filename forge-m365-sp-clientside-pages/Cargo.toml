@@ -1,0 +1,19 @@
+[package]
+name = "forge-m365-sp-clientside-pages"
+description = "SharePoint modern/client-side page canvas data model and JSON codec for the forge-m365 SDK, hand-ported from PnPjs packages/sp/clientside-pages"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+forge-m365-core = { path = "../forge-m365-core", version = "0.1.0" }
+forge-m365-macros = { path = "../forge-m365-macros", version = "0.1.0" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+rand = { workspace = true }
+percent-encoding = { workspace = true }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

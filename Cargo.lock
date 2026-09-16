@@ -168,21 +168,39 @@ dependencies = [
  "forge-m365-macros",
  "forge-m365-sp-appcatalog",
  "forge-m365-sp-attachments",
+ "forge-m365-sp-clientside-pages",
+ "forge-m365-sp-column-defaults",
  "forge-m365-sp-comments",
  "forge-m365-sp-content-types",
+ "forge-m365-sp-features",
+ "forge-m365-sp-fields",
  "forge-m365-sp-files",
  "forge-m365-sp-folders",
  "forge-m365-sp-forms",
+ "forge-m365-sp-groupsitemanager",
  "forge-m365-sp-hubsites",
+ "forge-m365-sp-items",
  "forge-m365-sp-lists",
  "forge-m365-sp-navigation",
+ "forge-m365-sp-profiles",
+ "forge-m365-sp-publishing-sitepageservice",
  "forge-m365-sp-recycle-bin",
+ "forge-m365-sp-regional-settings",
+ "forge-m365-sp-related-items",
  "forge-m365-sp-search",
  "forge-m365-sp-security",
+ "forge-m365-sp-sharing",
+ "forge-m365-sp-site-designs",
  "forge-m365-sp-site-groups",
+ "forge-m365-sp-site-scripts",
  "forge-m365-sp-site-users",
  "forge-m365-sp-sites",
+ "forge-m365-sp-social",
+ "forge-m365-sp-subscriptions",
+ "forge-m365-sp-user-custom-actions",
+ "forge-m365-sp-utilities",
  "forge-m365-sp-views",
+ "forge-m365-sp-webparts",
  "forge-m365-sp-webs",
  "serde_json",
  "tokio",
@@ -248,6 +266,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "forge-m365-sp-clientside-pages"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "rand 0.8.8",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-column-defaults"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "forge-m365-sp-comments"
 version = "0.1.0"
 dependencies = [
@@ -261,6 +304,29 @@ dependencies = [
 
 [[package]]
 name = "forge-m365-sp-content-types"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-features"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-fields"
 version = "0.1.0"
 dependencies = [
  "forge-m365-core",
@@ -308,11 +374,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "forge-m365-sp-groupsitemanager"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "forge-m365-sp-hubsites"
 version = "0.1.0"
 dependencies = [
  "forge-m365-core",
  "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-items"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
  "serde",
  "serde_json",
  "tokio",
@@ -342,7 +431,51 @@ dependencies = [
 ]
 
 [[package]]
+name = "forge-m365-sp-profiles"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-publishing-sitepageservice"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "forge-m365-sp-recycle-bin"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-regional-settings"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-related-items"
 version = "0.1.0"
 dependencies = [
  "forge-m365-core",
@@ -375,12 +508,47 @@ dependencies = [
 ]
 
 [[package]]
+name = "forge-m365-sp-sharing"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-site-designs"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "forge-m365-sp-site-groups"
 version = "0.1.0"
 dependencies = [
  "forge-m365-core",
  "forge-m365-macros",
  "forge-m365-sp-site-users",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-site-scripts"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
  "percent-encoding",
  "serde",
  "serde_json",
@@ -412,6 +580,51 @@ dependencies = [
 ]
 
 [[package]]
+name = "forge-m365-sp-social"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-subscriptions"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-user-custom-actions"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-utilities"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "forge-m365-sp-views"
 version = "0.1.0"
 dependencies = [
@@ -419,6 +632,17 @@ dependencies = [
  "forge-m365-macros",
  "percent-encoding",
  "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "forge-m365-sp-webparts"
+version = "0.1.0"
+dependencies = [
+ "forge-m365-core",
+ "forge-m365-macros",
+ "percent-encoding",
  "serde_json",
  "tokio",
 ]
