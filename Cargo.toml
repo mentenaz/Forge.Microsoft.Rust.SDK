@@ -48,7 +48,7 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/mentenaz/Forge.Microsoft.Rust.SDK"
-authors = ["Mentenaz"]
+
 
 [workspace.dependencies]
 inventory = "0.3"
