@@ -245,6 +245,19 @@ live testing isn't currently possible either way.
 - CSOM is out of scope as a protocol; its operations map to REST or become
   typed `Unsupported`.
 
+## Graph / M3 plan (decided 2026-11-11 — see SPEC.md §8 M3 for the phase list)
+
+- **Core hardening comes first** (G0), before any generated code.
+- **Generator** is a standalone tool (`tools/graph-gen`, outside the workspace members) that reads a
+  pinned `microsoftgraph/msgraph-metadata` OpenAPI file (v1.0 only at first) and writes
+  **checked-in** Rust source. No `build.rs`, no build-time network.
+- **Granularity**: ~15 workload crates (`forge-m365-graph-<workload>`) + one shared
+  `forge-m365-graph-types` crate. Not one crate per resource, not 1:1 with PnPjs `graph/*`.
+- **First slice**: the SharePoint-overlapping surface (sites, drives/drive items, lists, list items),
+  so the escalation ladder gets real Graph fallbacks for `sp-sites`/`sp-lists`/`sp-files`/`sp-items`.
+- Every generated crate README records the metadata repo + commit it was generated from.
+- Third-party crates were reviewed and rejected — see the section below; never depend on `msgraph-rs` (GPL).
+
 ## Reference sources on disk (verified paths)
 
 | Path | What |
@@ -261,6 +274,33 @@ live testing isn't currently possible either way.
 | `E:\sources\msgraph-sdk-dotnet` | Graph SDK snapshot |
 | `E:\sources\CSOM-binaries` | closed-source SPO CSOM nupkg (reference only) |
 | `E:\Forge.Rust.SDK` | sibling project — macro/inventory pattern to imitate |
+
+## Third-party Rust crates reviewed (2026-11-11)
+
+Surveyed on crates.io; none is a dependency candidate. Do not re-survey unless a new crate appears.
+
+| Crate | Verdict |
+|---|---|
+| `msgraph-rs` 0.1.2 | ~244 lines (token + get/list user). Published once in 2024, abandoned. **GPL-3.0-only** — incompatible with our MIT; never depend on it or copy from it. |
+| `sharepoint` 0.3.0 | 2017, hyper 0.11, username/password cookie auth that modern tenants block. LGPL-3.0. Nothing useful. |
+| `sharepoint-cli` 0.1.1 (MIT, active) | CLI, not an SDK (~8.6k lines; its REST layer is read-only GETs for sites/drives/files/search). Read-only **reference**, not a dependency. Source: https://github.com/rvben/sharepoint-cli |
+
+What `sharepoint-cli` is useful for (re-implement in our own style; if code is ever lifted verbatim,
+record its MIT license + source in the crate README):
+
+- **Core hardening reference** — our core has none of these yet: 429/5xx retry with `Retry-After`
+  (seconds and HTTP-date), `@odata.nextLink` / `odata.nextLink` paging, status → typed error mapping
+  (incl. verbose 500 bodies), token cache + session store, device-code/browser flow edge cases
+  (its device-code is 547 lines vs. our 213 — compare for `slow_down`/interval handling).
+- **SharePoint REST quirks to turn into tests** in our crates: file `Length` may arrive as a string;
+  search `LastModifiedTime` zero-fraction timestamps; document-library listing filter
+  `BaseTemplate eq 101 or 700 and Hidden eq false` with `$expand=RootFolder`; download via
+  `GetFileByServerRelativePath(decodedurl='…')/$value` (check `sp-files` uses the `decodedurl` form).
+- **Design contrast** — its `Backend` enum switches Graph vs. REST by config with no automatic
+  fallback; our escalation ladder is the more ambitious design. Its behaviour is evidence for the
+  quirks above only — it does **not** live-verify our crates.
+- **Open question noted**: nothing in our crates fetches a request digest (`contextinfo`). Bearer-token
+  calls shouldn't need one, but write ops are unverified — keep it flagged.
 
 ## Domain knowledge that must survive sessions
 

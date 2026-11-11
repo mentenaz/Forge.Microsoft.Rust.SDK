@@ -171,7 +171,7 @@ Design constraints:
 | M0 | Workspace scaffold, `core` pipeline skeleton, auth client-credentials, CI, name reservation on crates.io |
 | M1 (v0.0.1) | Auth + `sp-sites`, `sp-lists`, `sp-files`: enumerate sites, CRUD list items, upload/download files end-to-end against a live dev tenant. Exercises auth → dual audience → OData parse → escalation ladder |
 | M2 | Device-code auth; remaining `sp-*` domains ported from PnPjs |
-| M3 | Graph domains via generator; facade complete |
+| M3 | Graph domains via generator; facade complete. Phased: **G0** core hardening (typed errors, 429/5xx retry, paging helper, Graph error shape, ladder returns `Unsupported` on exhaustion) → **G1** `tools/graph-gen` + `forge-m365-graph-types` → **G2** first slice (sites, drives, lists, list items) + real ladder fallbacks → **G3** remaining workloads (users, groups, teams, mail, calendar, …) → **G4** `$batch`, facade `graph` module. Generator reads pinned `msgraph-metadata` OpenAPI (v1.0) and emits checked-in source |
 | M4 | Interactive browser auth, managed identity; admin surfaces |
 | M5 | Parity audit vs PnP PowerShell cmdlet list; docs; crates.io publish |
 
